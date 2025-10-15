@@ -88,15 +88,18 @@ function App() {
       setPagination(dataResponse.data.pagination);
       setTotals(totalsResponse.data.totals);
       
-      // Extract column names from the first object
-      if (fetchedData.length > 0) {
-        const cols = Object.keys(fetchedData[0]).filter(
-          key => key !== '_id' && key !== '__v' && key !== 'createdAt' && key !== 'updatedAt'
-        );
-        setColumns(cols);
-      } else {
-        setColumns([]);
-      }
+      // Only display specific columns
+      const allowedColumns = [
+        'CategoryShortName',
+        'branch',
+        'SupplierAlias',
+        'ArticleNo',
+        'NetSlsQty',
+        'NetAmount',
+        'NetSlsCostValue',
+        'SlsExtCostValue'
+      ];
+      setColumns(allowedColumns);
     } catch (error) {
       console.error('Error fetching data:', error);
       setError('Error fetching data from server. Please ensure backend is running.');
